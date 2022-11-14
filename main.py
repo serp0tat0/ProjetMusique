@@ -1,13 +1,16 @@
 import spotipy
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
+"""
+
 
 spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials())
 
 if len(sys.argv) > 1:
     name = ' '.join(sys.argv[1:])
 else:
-    name = "Radiohead" #input("insert artist name\n")
+    name = input("insert artist name\n") #gives the top 10 for any given artist
 
 results = spotify.search(q='artist:' + name, type='artist')
 items = results['artists']['items']
@@ -20,3 +23,11 @@ for track in toptracks['tracks'][:10]:
 
     print(trackindex, track["name"])
     trackindex += 1
+"""
+scope = "user-library-read"
+
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+results = sp.current_user_saved_tracks()
+for idx, item in enumerate(results["items"]):
+    track = item["track"]
+    print(idx, track["artists"][0]["name"], " - ", track["name"])
