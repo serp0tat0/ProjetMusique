@@ -27,7 +27,16 @@ for track in toptracks['tracks'][:10]:
 scope = "user-library-read"
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
-results = sp.current_user_saved_tracks()
+
+sp.current_user()
+
+results = sp.current_user_saved_tracks(limit=50)
 for idx, item in enumerate(results["items"]):
+    idx += 1
+    track = item["track"]
+    print(idx, track["artists"][0]["name"], " - ", track["name"])
+results = sp.current_user_saved_tracks(limit=50, offset=50)
+for idx, item in enumerate(results["items"]):
+    idx += 1
     track = item["track"]
     print(idx, track["artists"][0]["name"], " - ", track["name"])
