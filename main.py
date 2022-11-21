@@ -37,6 +37,6 @@ for idx, item in enumerate(results["items"]):
     print(idx, track["artists"][0]["name"], " - ", track["name"])
 results = sp.current_user_saved_tracks(limit=50, offset=50)
 for idx, item in enumerate(results["items"]):
-    idx += 1
+    idx += 51
     track = item["track"]
     print(idx, track["artists"][0]["name"], " - ", track["name"])
