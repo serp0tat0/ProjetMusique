@@ -1,0 +1,24 @@
+# hello_psg.py
+import PySimpleGUI as sg
+
+layout = [[sg.Text("Bonjour, voulez-vous commecer le jeu")], [sg.Button("NON")],[sg.Button("OUI")]]
+
+
+# Create the window
+window = sg.Window("MUSIC FINDER", layout,margins=(100, 50))
+
+# Create an event loop
+while True:
+    event, values = window.read()
+    # End program if user closes window or
+    # presses the OK button
+    if event == "OUI" or event == sg.WIN_CLOSED:
+        break
+    if event == "NON" or event == sg.WIN_CLOSED:
+        layout = [[sg.Text("MERCI DE RESTER MON CHIEN")]]
+        sg.Window(title="Hello World", layout=[[]], margins=(300, 300)).read()
+
+
+
+
+window.close()
