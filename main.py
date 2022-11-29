@@ -8,19 +8,29 @@ import pylast
 
 
 def spotifytest():
-    spotify = spotipy.Spotify(SpotifyOAuth.)
+    scope="user-library-read"
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+    def get_auth(message):
+        username = str(message.from_user.id)
+        scope = "user-top-read"
+        auth = SpotifyOAuth(
+            redirect_uri="http://localhost:8000",
+            username=username,
+            scope=scope
+        )
+        return auth
 
     if len(sys.argv) > 1:
         name = ' '.join(sys.argv[1:])
     else:
         name = input("insert artist name\n") #gives the top 10 for any given artist
 
-    results = spotify.search(q='artist:' + name, type='artist')
+    results = sp.search(q='artist:' + name, type='artist')
     items = results['artists']['items']
     if len(items) > 0:
         artist = items[0]
 
-    toptracks = spotify.artist_top_tracks(artist['uri'])
+    toptracks = sp.artist_top_tracks(artist['uri'])
     trackindex = 1
     for track in toptracks['tracks'][:10]:
 
@@ -28,12 +38,6 @@ def spotifytest():
         trackindex += 1
 
     scope = "user-library-read"
-    
-    
-    
-    
-
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
     sp.current_user()
 
@@ -51,26 +55,25 @@ def spotifytest():
 def lastfmTest():
     # You have to have your own unique two values for API_KEY and API_SECRET
     # Obtain yours from https://www.last.fm/api/account/create for Last.fm
-    API_KEY = "b25b959554ed76058ac220b7b2e0a026"  # this is a sample key
-    API_SECRET = "425b55975eed76058ac220b7b4e8a054"
+    API_KEY = "6f2418af4811729422f66602cad71f14"
+    USER_AGENT = "Chad_musica"
+    import requests
 
-    # In order to perform a write operation you need to authenticate yourself
-    username = "your_user_name"
-    password_hash = pylast.md5("your_password")
+    headers = {
+        'user-agent': USER_AGENT
+    }
 
-    network = pylast.LastFMNetwork(
-        api_key=API_KEY,
-        api_secret=API_SECRET,
-        username=username,
-        password_hash=password_hash,
-    )
+    payload = {
+        'api_key': API_KEY,
+        'method': 'chart.gettopartists',
+        'format': 'json'
+    }
 
-    # Now you can use that object everywhere
-    track = network.get_track("Iron Maiden", "The Nomad")
-    track.love()
-    track.add_tags(("awesome", "favorite"))
+    r = requests.get('https://ws.audioscrobbler.com/2.0/', headers=headers, params=payload)
+    r.status_code
+
 
     # Type help(pylast.LastFMNetwork) or help(pylast) in a Python interpreter
     # to get more help about anything and see examples of how it works
 
-spotifytest()
+lastfmTest()
