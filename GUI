@@ -1,5 +1,4 @@
 # hello_psg.py
-
 import PySimpleGUI as sg
 
 layout = [[sg.Text("Bonjour, voulez-vous commecer le jeu")], [sg.Button("NON")],[sg.Button("OUI")]]
