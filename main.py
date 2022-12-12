@@ -2,8 +2,8 @@ import spotipy
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
-import pylast
-
+import pylast as pyla
+from passwords_ts import name, password, secret, key
 
 
 
@@ -39,41 +39,21 @@ def spotifytest():
 
     scope = "user-library-read"
 
-    sp.current_user()
-
-    results = sp.current_user_saved_tracks(limit=50)
-    for idx, item in enumerate(results["items"]):
-        idx += 1
-        track = item["track"]
-        print(idx, track["artists"][0]["name"], " - ", track["name"])
-    results = sp.current_user_saved_tracks(limit=50, offset=50)
-    for idx, item in enumerate(results["items"]):
-        idx += 51
-        track = item["track"]
-        print(idx, track["artists"][0]["name"], " - ", track["name"])
 
 def lastfmTest():
+
+
     # You have to have your own unique two values for API_KEY and API_SECRET
     # Obtain yours from https://www.last.fm/api/account/create for Last.fm
-    API_KEY = "6f2418af4811729422f66602cad71f14"
-    USER_AGENT = "Chad_musica"
-    import requests
-
-    headers = {
-        'user-agent': USER_AGENT
-    }
-
-    payload = {
-        'api_key': API_KEY,
-        'method': 'chart.gettopartists',
-        'format': 'json'
-    }
-
-    r = requests.get('https://ws.audioscrobbler.com/2.0/', headers=headers, params=payload)
-    r.status_code
 
 
-    # Type help(pylast.LastFMNetwork) or help(pylast) in a Python interpreter
-    # to get more help about anything and see examples of how it works
+    network = pyla.LastFMNetwork(
+        api_key=key,
+        api_secret=secret,
+        username=name,
+        password_hash=password,
+    )
 
+
+    pyla.Alb
 lastfmTest()
