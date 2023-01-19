@@ -2,7 +2,7 @@ import spotipy
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
-import pylast as pyla
+import pylast
 from passwords_ts import name, password, secret, key
 
 
@@ -47,13 +47,20 @@ def lastfmTest():
     # Obtain yours from https://www.last.fm/api/account/create for Last.fm
 
 
-    network = pyla.LastFMNetwork(
+    network = pylast.LastFMNetwork(
         api_key=key,
         api_secret=secret,
         username=name,
         password_hash=password,
+
+
+
     )
+    pylast.User.get_top_track("Chad_musica", "12month", 50, )
 
 
-    pyla.Alb
+
+
+
+
 lastfmTest()
