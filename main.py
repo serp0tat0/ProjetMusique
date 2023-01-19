@@ -4,6 +4,15 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
 import pylast
 from passwords_ts import name, password, secret, key
+import lfmxtractplus as lxp
+import pandas as pd
+import matplotlib.pyplot as plt
+import datetime as dt
+import seaborn as sns
+import calmap as cm
+from IPython.display import display, HTML
+
+%matplotlib inline
 
 
 
@@ -58,9 +67,10 @@ def lastfmTest():
     )
     pylast.User.get_top_track("Chad_musica", "12month", 50, )
 
+"""
+using lfmxtractplus
+"""
+lf = lxp.lfmxtractplus("C:\\Downloads\")
 
 
 
-
-
-lastfmTest()
