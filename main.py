@@ -5,15 +5,15 @@ from spotipy.oauth2 import SpotifyOAuth
 import pylast
 from passwords_ts import name, password, secret, key
 import lfmxtractplus as lxp
+import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
 import datetime as dt
 import seaborn as sns
 import calmap as cm
 from IPython.display import display, HTML
-
-%matplotlib inline
-
+import os
+import configparser
 
 
 def spotifytest():
@@ -70,7 +70,21 @@ def lastfmTest():
 """
 using lfmxtractplus
 """
-lf = lxp.lfmxtractplus("C:\\Downloads\")
+lf = lxp.lfmxtractplus("config.yaml")
+scrobbles_dict = lf.generate_dataset(lfusername = 'Chad_musica', pages = 0)
+scrobbles_df = scrobbles_dict['complete']
 
 
+# note that this is for python3. Some changes need to be made for python2
 
+# create parser object and read config file
+config = configparser.RawConfigParser()
+config.read('myconfig.cfg')
+
+# loop through. Here for instructional purposes we print, but you can
+# assign etc instead.
+for section in config.sections():
+    print(section)
+    for option in config.options(section):
+        text = '{} {}'.format(option, config.get(section,option))
+        print(text)
