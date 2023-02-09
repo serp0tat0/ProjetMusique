@@ -1,82 +1,99 @@
 import spotipy
-import sys
-from spotipy.oauth2 import SpotifyClientCredentials
-from spotipy.oauth2 import SpotifyOAuth
-import pylast
-from passwords_ts import name, password, secret, key,
-import lfmxtractplus as lxp
-import matplotlib
+import spotipy.util as util
 import pandas as pd
-import matplotlib.pyplot as plt
-import datetime as dt
-import seaborn as sns
-import calmap as cm
-from IPython.display import display, HTML
-import os
-import configparser
-import yaml
-import pandas as pd
-def spotifytest():
-    scope="user-library-read"
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
-    def get_auth(message):
-        username = str(message.from_user.id)
-        scope = "user-top-read"
-        auth = SpotifyOAuth(
-            redirect_uri="http://localhost:8000",
-            username=username,
-            scope=scope
-        )
-        return auth
+import time
+from passwords_ts import sp_cid, sp_secret
+import plotly.graph_objects as go
+import networkx as nx
 
-    if len(sys.argv) > 1:
-        name = ' '.join(sys.argv[1:])
-    else:
-        name = input("insert artist name\n") #gives the top 10 for any given artist
+username = 'Nathcamaroti'
+scope = 'user-library-read'
+client_id = sp_cid
+client_secret = sp_secret
+redirect_uri = 'https://example.com/callback'
 
-    results = sp.search(q='artist:' + name, type='artist')
-    items = results['artists']['items']
-    if len(items) > 0:
-        artist = items[0]
+token = util.prompt_for_user_token(
+    username = username, scope = scope,
+    client_id = client_id, client_secret = client_secret,
+    redirect_uri = redirect_uri)
 
-    toptracks = sp.artist_top_tracks(artist['uri'])
-    trackindex = 1
-    for track in toptracks['tracks'][:10]:
+spotify = spotipy.Spotify(auth=token)
 
-        print(trackindex, track["name"])
-        trackindex += 1
+a = spotify.artist('3TVXtAsR1Inumwj472S9r4') # drake
+ra = spotify.artist_related_artists('3TVXtAsR1Inumwj472S9r4') # drake
 
-    scope = "user-library-read"
+print(ra)
+def plotting():
+    G = nx.random_geometric_graph(200, 0.125)
+    edge_x = []
+    edge_y = []
+    for edge in G.edges():
+        x0, y0 = G.nodes[edge[0]]['pos']
+        x1, y1 = G.nodes[edge[1]]['pos']
+        edge_x.append(x0)
+        edge_x.append(x1)
+        edge_x.append(None)
+        edge_y.append(y0)
+        edge_y.append(y1)
+        edge_y.append(None)
 
+    edge_trace = go.Scatter(
+        x=edge_x, y=edge_y,
+        line=dict(width=0.5, color='#888'),
+        hoverinfo='none',
+        mode='lines')
 
-def lastfmTest():
+    node_x = []
+    node_y = []
+    for node in G.nodes():
+        x, y = G.nodes[node]['pos']
+        node_x.append(x)
+        node_y.append(y)
 
+    node_trace = go.Scatter(
+        x=node_x, y=node_y,
+        mode='markers',
+        hoverinfo='text',
+        marker=dict(
+            showscale=True,
+            # colorscale options
+            #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
+            #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
+            #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
+            colorscale='YlGnBu',
+            reversescale=True,
+            color=[],
+            size=10,
+            colorbar=dict(
+                thickness=15,
+                title='Node Connections',
+                xanchor='left',
+                titleside='right'
+            ),
+            line_width=2))
 
-    # You have to have your own unique two values for API_KEY and API_SECRET
-    # Obtain yours from https://www.last.fm/api/account/create for Last.fm
+    node_adjacencies = []
+    node_text = []
+    for node, adjacencies in enumerate(G.adjacency()):
+        node_adjacencies.append(len(adjacencies[1]))
+        node_text.append('# of connections: '+str(len(adjacencies[1])))
 
+    node_trace.marker.color = node_adjacencies
+    node_trace.text = node_text
 
-    network = pylast.LastFMNetwork(
-        api_key=key,
-        api_secret=secret,
-        username=name,
-        password_hash=password,
-
-
-
-    )
-    pylast.User.get_top_track("Chad_musica", "12month", 50, )
-
-"""
-using lfmxtractplus
-"""
-lf = lxp.lfmxtractplus(r"C:\Users\camarotin\PycharmProjects\Q_Musique\lfmxtractplus-master\config.yaml")
-scrobbles_dict = lf.generate_dataset(lfusername='Chad_musica', pages=0)
-scrobbles_df = scrobbles_dict['complete']
-
-
-# note that this is for python3. Some changes need to be made for python2
-
-# create parser object and read config file
-
-
+    fig = go.Figure(data=[edge_trace, node_trace],
+                 layout=go.Layout(
+                    title='<br>Network graph made with Python',
+                    titlefont_size=16,
+                    showlegend=False,
+                    hovermode='closest',
+                    margin=dict(b=20,l=5,r=5,t=40),
+                    annotations=[ dict(
+                        text="Python code: <a href='https://plotly.com/ipython-notebooks/network-graphs/'> https://plotly.com/ipython-notebooks/network-graphs/</a>",
+                        showarrow=False,
+                        xref="paper", yref="paper",
+                        x=0.005, y=-0.002 ) ],
+                    xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                    yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
+                    )
+    fig.show()
