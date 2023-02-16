@@ -3,9 +3,8 @@ import spotipy.util as util
 import pandas as pd
 import time
 from passwords_ts import sp_cid, sp_secret
-import plotly.graph_objects as go
 import networkx as nx
-
+import matplotlib.pyplot as plt
 username = 'Nathcamaroti'
 scope = 'user-library-read'
 client_id = sp_cid
@@ -17,83 +16,46 @@ token = util.prompt_for_user_token(
     client_id = client_id, client_secret = client_secret,
     redirect_uri = redirect_uri)
 
-spotify = spotipy.Spotify(auth=token)
+sp = spotipy.Spotify(auth=token)
 
-a = spotify.artist('3TVXtAsR1Inumwj472S9r4') # drake
-ra = spotify.artist_related_artists('3TVXtAsR1Inumwj472S9r4') # drake
+# Define function to get similar artists for a given artist
+def get_similar_artists(artist_name):
+    results = sp.search(q='artist:' + artist_name, type='artist')
+    items = results['artists']['items']
+    if len(items) > 0:
+        artist = items[0]
+        artist_id = artist['id']
+        similar_artists = sp.artist_related_artists(artist_id)
+        return similar_artists['artists']
+    else:
+        print("Couldn't find artist with name " + artist_name)
 
-print(ra)
-def plotting():
-    G = nx.random_geometric_graph(200, 0.125)
-    edge_x = []
-    edge_y = []
-    for edge in G.edges():
-        x0, y0 = G.nodes[edge[0]]['pos']
-        x1, y1 = G.nodes[edge[1]]['pos']
-        edge_x.append(x0)
-        edge_x.append(x1)
-        edge_x.append(None)
-        edge_y.append(y0)
-        edge_y.append(y1)
-        edge_y.append(None)
+# Define the artist to get similar artists for
+artist_name = input("insert artist name\n")
 
-    edge_trace = go.Scatter(
-        x=edge_x, y=edge_y,
-        line=dict(width=0.5, color='#888'),
-        hoverinfo='none',
-        mode='lines')
+# Get the list of similar artists
+similar_artists = get_similar_artists(artist_name)
 
-    node_x = []
-    node_y = []
-    for node in G.nodes():
-        x, y = G.nodes[node]['pos']
-        node_x.append(x)
-        node_y.append(y)
+# Extract the artist names and popularity scores
+artist_names = [artist['name'] for artist in similar_artists]
+popularity_scores = [artist['popularity'] for artist in similar_artists]
 
-    node_trace = go.Scatter(
-        x=node_x, y=node_y,
-        mode='markers',
-        hoverinfo='text',
-        marker=dict(
-            showscale=True,
-            # colorscale options
-            #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
-            #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
-            #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
-            colorscale='YlGnBu',
-            reversescale=True,
-            color=[],
-            size=10,
-            colorbar=dict(
-                thickness=15,
-                title='Node Connections',
-                xanchor='left',
-                titleside='right'
-            ),
-            line_width=2))
+# Create the scatter plot
+fig, ax = plt.subplots()
+ax.scatter(popularity_scores, range(len(artist_names)), alpha=0.5)
 
-    node_adjacencies = []
-    node_text = []
-    for node, adjacencies in enumerate(G.adjacency()):
-        node_adjacencies.append(len(adjacencies[1]))
-        node_text.append('# of connections: '+str(len(adjacencies[1])))
+# Add labels and title
+ax.set_xlabel('Popularity')
+ax.set_ylabel('Artist')
+ax.set_title(f'Similar Artists to {artist_name}')
 
-    node_trace.marker.color = node_adjacencies
-    node_trace.text = node_text
+# Add artist names as y-axis labels
+ax.set_yticks(range(len(artist_names)))
+ax.set_yticklabels(artist_names)
 
-    fig = go.Figure(data=[edge_trace, node_trace],
-                 layout=go.Layout(
-                    title='<br>Network graph made with Python',
-                    titlefont_size=16,
-                    showlegend=False,
-                    hovermode='closest',
-                    margin=dict(b=20,l=5,r=5,t=40),
-                    annotations=[ dict(
-                        text="Python code: <a href='https://plotly.com/ipython-notebooks/network-graphs/'> https://plotly.com/ipython-notebooks/network-graphs/</a>",
-                        showarrow=False,
-                        xref="paper", yref="paper",
-                        x=0.005, y=-0.002 ) ],
-                    xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-                    yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
-                    )
-    fig.show()
+# Show the plot
+plt.show()
+playlist_id = "2ioMrZinG1MptQSyUiXTD0"
+sp_playlist = sp.user_playlist_tracks(username, playlist_id=playlist_id)
+tracks = sp_playlist["items"]
+print(tracks)
