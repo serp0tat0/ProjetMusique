@@ -26,7 +26,7 @@ def login():
     global sp
     sp = spotipy.Spotify(auth=token)
 
-login()
+#login()
 #SIMILAR ARTISTS TESTING
 def SartTesting():
 
@@ -66,7 +66,7 @@ def SartTesting():
 
     # Show the plot
     plt.show()
-SartTesting()
+#SartTesting()
 
 #playlist reading, stuff like that, and whatnot, going to add the option for the user to pick a playlist straight up, because Ion wanna mess w that rn
 #DOING THE PLAYLIST SELECTION RN... JK
@@ -98,4 +98,4 @@ def ILOVEPLAYLISTREADING():
     plt.title("Playlist artists")
     plt.show()
 
-ILOVEPLAYLISTREADING()
+#ILOVEPLAYLISTREADING()
