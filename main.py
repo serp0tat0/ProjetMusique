@@ -3,7 +3,7 @@ import spotipy
 import spotipy.util as util
 import pandas as pd
 import time
-from passwords_ts import sp_cid, sp_secret
+from passwords_ts import sp_cid, sp_secret, playlist_id
 import networkx as nx
 import matplotlib.pyplot as plt
 username = 'Nathcamaroti'
@@ -11,7 +11,6 @@ scope = 'user-library-read'
 client_id = sp_cid
 client_secret = sp_secret
 redirect_uri = 'https://example.com/callback'
-
 global sp
 """
 Connection 
@@ -71,7 +70,6 @@ def SartTesting():
 #playlist reading, stuff like that, and whatnot, going to add the option for the user to pick a playlist straight up, because Ion wanna mess w that rn
 #DOING THE PLAYLIST SELECTION RN... JK
 def ILOVEPLAYLISTREADING():
-    playlist_id = "2ioMrZinG1MptQSyUiXTD0"
     playlist = sp.playlist_tracks( playlist_id=playlist_id, fields="items(track(name, artists(name)))")
     for item in playlist["items"]:
         track = item["track"]
@@ -97,5 +95,4 @@ def ILOVEPLAYLISTREADING():
     plt.xlabel("Number of tracks")
     plt.title("Playlist artists")
     plt.show()
-
 #ILOVEPLAYLISTREADING()
