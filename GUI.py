@@ -1,6 +1,7 @@
 import tkinter as tk
 from main import login, ILOVEPLAYLISTREADING,SartTesting
 from passwords_ts import playlist_id
+
 import webbrowser
 
 from tkinter import ttk
@@ -18,7 +19,8 @@ root.resizable(False,False)
 root.title("Button Demo")
 E1posX = 128
 E1posY = 50
-ID=tk.StringVar()
+ID = tk.StringVar()
+AN = tk.StringVar()
 #also putting the button positions here, don't feel like actually copying and pasting them
 B1posX=128
 B1posY=50
@@ -26,6 +28,7 @@ B2posX=128
 B2posY=300
 B3posX=512
 B3posY=50
+
 """
 PUTTING THE BUTTONS HERE BECUSE BIG COPE I CANT PUT THEM AFTER
 """
@@ -36,15 +39,23 @@ button3= 0
 def callback(url):
     webbrowser.open_new_tab(url)
 
-def switch():
+def defaultswitch(): #literally the default thing, gonna spawn things accordingly to avoid repetition
     button1.place_forget()
     button2.place_forget()
     button3.place_forget()
-    e1.place(x=E1posX, y= E1posY)
-    L1.place(x=E1posX, y = E1posY-20)
+    GB.pack(anchor="w", side="bottom")
+
+def switch():
+    defaultswitch()
+    e1.place(x=E1posX, y=E1posY)
+    L1.place(x=E1posX, y=E1posY-20)
     B1.place(x=E1posX, y=E1posY+20)
-    GB.pack(anchor= "w",side = "bottom")
     link.pack()
+
+def switch2(): #the switch for the second button, could also just do it in one function. might do that actually.
+    defaultswitch()
+    e2.place(x=E1posX, y=E1posY)
+    B2.place(x=E1posX. y=E1posy)
 
 
 #SPAGHETTICODE MOMENT, not gonna place the buttons in the code itself but in the goback function
@@ -57,19 +68,14 @@ def goback():
     B1.place_forget()
     GB.pack_forget()
     link.pack_forget()
+    exit_button.pack(anchor="e", side="bottom")
 
-
-def THE_CREACHURE():
-    print("yeah")
-#uhhgghhhhhhhh yeah
-    button1 = tk.DISABLED
-    button2 = tk.DISABLED
-    button3 = tk.DISABLED
 
 exit_button = ttk.Button(
     root,
     text="Exit",
-    command=lambda: root.quit()
+    command=lambda: root.quit(),
+    cursor="hand2"
 )
 # Create Buttons in the frame
 button1 = tk.Button(root,
@@ -79,33 +85,37 @@ button1 = tk.Button(root,
     command = switch,
     cursor="hand2")
 
-#button1.place(x=128, y=50)
 
 button2 = tk.Button(root,
     text="Button-2",
     height=BHeight1,
     width=BWidth1,
-    command=THE_CREACHURE,
+    command=switch2,
     cursor="hand2")
-#button2.place(x=128, y=300)
-def testing():
+def PReadButton():
 
 
 
     print(ID.get())
     ILOVEPLAYLISTREADING(ID.get())
+
+def SArtistsButton():
+    print(AN.get())
+    SartTesting(AN.get())
 button3 = tk.Button(root,
     text="Button-3",
     height=BHeight2,
     width=BWidth2,
-    command=THE_CREACHURE,
     cursor="hand2")
-#button3.place(x=512, y=50)
 
 #text box somewhere around here
+
 e1 = tk.Entry(root, textvariable=ID, width=30)
+e2 = tk.Entry(root, textvariable=AN, width=30)
 L1 = tk.Label(root, text="insert playlist id")
-B1 = tk.Button(root, text="Got it!", command=testing)
+B1 = tk.Button(root, text="Got it!", command=PReadButton)
+B2 = tk.Button(root,text="Got it!")
+
 link = tk.Label(root, text="How can I find my playlist id?", font=("Helveticabold", 15), fg= "blue", cursor="hand2")
 link.bind("<Button-1>", lambda e:
 callback("https://clients.caster.fm/knowledgebase/110/How-to-find-Spotify-playlist-ID.html#:~:text=To%20find%20the%20Spotify%20playlist,Link%22%20under%20the%20Share%20menu.&text=The%20playlist%20id%20is%20the,after%20playlist%2F%20as%20marked%20above."))
