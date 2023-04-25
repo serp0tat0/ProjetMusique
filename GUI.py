@@ -19,7 +19,13 @@ root.title("Button Demo")
 E1posX = 128
 E1posY = 50
 ID=tk.StringVar()
-
+#also putting the button positions here, don't feel like actually copying and pasting them
+B1posX=128
+B1posY=50
+B2posX=128
+B2posY=300
+B3posX=512
+B3posY=50
 """
 PUTTING THE BUTTONS HERE BECUSE BIG COPE I CANT PUT THEM AFTER
 """
@@ -31,10 +37,7 @@ def callback(url):
     webbrowser.open_new_tab(url)
 
 def switch():
-    if button1.winfo_exists() == 1:
-        button1.place_forget()
-    elif button1.winfo_exists() == 0:
-        button1.place
+    button1.place_forget()
     button2.place_forget()
     button3.place_forget()
     e1.place(x=E1posX, y= E1posY)
@@ -42,6 +45,19 @@ def switch():
     B1.place(x=E1posX, y=E1posY+20)
     GB.pack(anchor= "w",side = "bottom")
     link.pack()
+
+
+#SPAGHETTICODE MOMENT, not gonna place the buttons in the code itself but in the goback function
+def goback():
+    button1.place(x=B1posX, y=B1posY)
+    button2.place(x=B2posX, y=B2posY)
+    button3.place(x=B3posX, y=B3posY)
+    e1.place_forget()
+    L1.place_forget()
+    B1.place_forget()
+    GB.pack_forget()
+    link.pack_forget()
+
 
 def THE_CREACHURE():
     print("yeah")
@@ -63,7 +79,7 @@ button1 = tk.Button(root,
     command = switch,
     cursor="hand2")
 
-button1.place(x=128, y=50)
+#button1.place(x=128, y=50)
 
 button2 = tk.Button(root,
     text="Button-2",
@@ -71,19 +87,20 @@ button2 = tk.Button(root,
     width=BWidth1,
     command=THE_CREACHURE,
     cursor="hand2")
-button2.place(x=128, y=300)
+#button2.place(x=128, y=300)
 def testing():
-    playlist_id = ID.get()
-    ID.set("")
-    print(ID)
-    ILOVEPLAYLISTREADING()
+
+
+
+    print(ID.get())
+    ILOVEPLAYLISTREADING(ID.get())
 button3 = tk.Button(root,
     text="Button-3",
     height=BHeight2,
     width=BWidth2,
     command=THE_CREACHURE,
     cursor="hand2")
-button3.place(x=512, y=50)
+#button3.place(x=512, y=50)
 
 #text box somewhere around here
 e1 = tk.Entry(root, textvariable=ID, width=30)
@@ -93,9 +110,9 @@ link = tk.Label(root, text="How can I find my playlist id?", font=("Helveticabol
 link.bind("<Button-1>", lambda e:
 callback("https://clients.caster.fm/knowledgebase/110/How-to-find-Spotify-playlist-ID.html#:~:text=To%20find%20the%20Spotify%20playlist,Link%22%20under%20the%20Share%20menu.&text=The%20playlist%20id%20is%20the,after%20playlist%2F%20as%20marked%20above."))
 #Create a Label
-GB = tk.Button(root, text="Go back!", command= switch)
+GB = tk.Button(root, text="Go back!", command=goback)
 label = tk.Label(root, text="QM",).pack()
-
+goback()
 
 #similar artists section
 
