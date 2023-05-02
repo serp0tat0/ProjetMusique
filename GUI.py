@@ -48,14 +48,15 @@ def defaultswitch(): #literally the default thing, gonna spawn things accordingl
 def switch():
     defaultswitch()
     e1.place(x=E1posX, y=E1posY)
-    L1.place(x=E1posX, y=E1posY-20)
+    L1.place(x=E1posX, y=E1posY-21)
     B1.place(x=E1posX, y=E1posY+20)
     link.pack()
 
 def switch2(): #the switch for the second button, could also just do it in one function. might do that actually.
     defaultswitch()
     e2.place(x=E1posX, y=E1posY)
-    B2.place(x=E1posX. y=E1posy)
+    B2.place(x=E1posX, y=E1posY+20)
+    L2.place(x=E1posX, y=E1posY-21)
 
 
 #SPAGHETTICODE MOMENT, not gonna place the buttons in the code itself but in the goback function
@@ -69,6 +70,9 @@ def goback():
     GB.pack_forget()
     link.pack_forget()
     exit_button.pack(anchor="e", side="bottom")
+    e2.place_forget()
+    B2.place_forget()
+    L2.place_forget()
 
 
 exit_button = ttk.Button(
@@ -115,6 +119,8 @@ e2 = tk.Entry(root, textvariable=AN, width=30)
 L1 = tk.Label(root, text="insert playlist id")
 B1 = tk.Button(root, text="Got it!", command=PReadButton)
 B2 = tk.Button(root,text="Got it!")
+L2 = tk.Label(root, text="insert artist name")
+
 
 link = tk.Label(root, text="How can I find my playlist id?", font=("Helveticabold", 15), fg= "blue", cursor="hand2")
 link.bind("<Button-1>", lambda e:
@@ -125,6 +131,8 @@ label = tk.Label(root, text="QM",).pack()
 goback()
 
 #similar artists section
+#ULTIMATE MOTHERFUCKER
+#def THEARTISTSINPLAYLIST():
 
 
 root.mainloop()
