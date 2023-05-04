@@ -10,7 +10,7 @@ username = 'Nathcamaroti'
 scope = 'user-library-read'
 client_id = sp_cid
 client_secret = sp_secret
-redirect_uri = 'https://example.com/callback'
+redirect_uri = 'http://localhost:8000'
 global sp
 """
 Connection 
@@ -25,9 +25,9 @@ def login():
     global sp
     sp = spotipy.Spotify(auth=token)
 
-#login()
+login()
 #SIMILAR ARTISTS TESTING
-def SartTesting():
+def SartTesting(artist_name):
 
     def get_similar_artists(artist_name):
         results = sp.search(q='artist:' + artist_name, type='artist')
