@@ -106,6 +106,6 @@ def GigaJuicer(playlist_id):
         track = item["track"]
         for artist in track["artists"]:
             print(artist["name"])
-            SartTesting(artist)
+            SartTesting(artist["name"])
 
 #TESTING THIS ARRAY BULLSHIT
