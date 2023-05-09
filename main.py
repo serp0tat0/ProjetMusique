@@ -76,7 +76,10 @@ def ILOVEPLAYLISTREADING(playlist_id):
         for artist in track["artists"]:
             print(artist["name"])
 
+
     artist_counts = {}
+
+
     for item in playlist["items"]:
         track = item["track"]
         for artist in track["artists"]:
@@ -96,3 +99,13 @@ def ILOVEPLAYLISTREADING(playlist_id):
     plt.title("Playlist artists")
     plt.show()
 #ILOVEPLAYLISTREADING()
+
+def GigaJuicer(playlist_id):
+    playlist = sp.playlist_tracks( playlist_id=playlist_id, fields="items(track(name, artists(name)))")
+    for item in playlist["items"]:
+        track = item["track"]
+        for artist in track["artists"]:
+            print(artist["name"])
+            SartTesting(artist)
+
+#TESTING THIS ARRAY BULLSHIT
