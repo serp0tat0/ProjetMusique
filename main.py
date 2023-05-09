@@ -27,9 +27,9 @@ def login():
 
 #login()
 #SIMILAR ARTISTS TESTING
-def SartTesting():
+def SartTesting(artist_name):
 
-    def get_similar_artists(artist_name):
+    def get_similar_artists():
         results = sp.search(q='artist:' + artist_name, type='artist')
         items = results['artists']['items']
         if len(items) > 0:

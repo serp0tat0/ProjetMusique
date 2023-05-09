@@ -5,7 +5,7 @@ from passwords_ts import playlist_id
 import webbrowser
 
 from tkinter import ttk
-login()
+#login()
 """
 FOR SOME REASON ALSO GONNA PUT BUTTON SIZES HERE MAN THIS IS UGLY ASL
 """
@@ -105,7 +105,9 @@ def PReadButton():
 
 def SArtistsButton():
     print(AN.get())
-    SartTesting(AN.get())
+    #SartTesting(AN.get())
+
+
 button3 = tk.Button(root,
     text="Button-3",
     height=BHeight2,
@@ -118,7 +120,7 @@ e1 = tk.Entry(root, textvariable=ID, width=30)
 e2 = tk.Entry(root, textvariable=AN, width=30)
 L1 = tk.Label(root, text="insert playlist id")
 B1 = tk.Button(root, text="Got it!", command=PReadButton)
-B2 = tk.Button(root,text="Got it!")
+B2 = tk.Button(root,text="Got it!", command=SArtistsButton)
 L2 = tk.Label(root, text="insert artist name")
 
 
