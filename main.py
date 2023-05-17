@@ -27,7 +27,8 @@ def login():
 
 login()
 #SIMILAR ARTISTS TESTING
-def SartTesting(artist_name):
+global artist_name
+def SartTesting():
 
     def get_similar_artists():
         results = sp.search(q='artist:' + artist_name, type='artist')
@@ -41,7 +42,6 @@ def SartTesting(artist_name):
             print("Couldn't find artist with name " + artist_name)
 
     # Define the artist to get similar artists for
-    artist_name = input("insert artist name\n")
 
     # Get the list of similar artists
     similar_artists = get_similar_artists(artist_name)

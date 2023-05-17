@@ -105,7 +105,7 @@ def PReadButton():
 
 def SArtistsButton():
     print(AN.get())
-    #SartTesting(AN.get())
+    SartTesting(AN.get())
 
 
 button3 = tk.Button(root,
