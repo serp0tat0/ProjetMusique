@@ -28,25 +28,26 @@ def login():
 login()
 #SIMILAR ARTISTS TESTING
 global artist_name
-def SartTesting():
 
-    def get_similar_artists():
-        results = sp.search(q='artist:' + artist_name, type='artist')
-        items = results['artists']['items']
-        if len(items) > 0:
-            artist = items[0]
-            artist_id = artist['id']
-            similar_artists = sp.artist_related_artists(artist_id)
-            return similar_artists['artists']
-        else:
-            print("Couldn't find artist with name " + artist_name)
 
-    # Define the artist to get similar artists for
+def get_similar_artists(artist_name):
+    results = sp.search(q='artist:' + artist_name, type='artist')
+    items = results['artists']['items']
+    artists = None
+    if len(items) > 0:
+        artist = items[0]
+        artist_id = artist['id']
+        similar_artists = sp.artist_related_artists(artist_id)
+        artists = similar_artists['artists']
+    else:
+        print("Couldn't find artist with name " + artist_name)
 
-    # Get the list of similar artists
-    similar_artists = get_similar_artists(artist_name)
+        # Define the artist to get simsilar artists for
 
-    # Extract the artist names and popularity scores
+        # Get the list of similar artists
+    similar_artists = artists
+
+        # Extract the artist names and popularity scores
     artist_names = [artist['name'] for artist in similar_artists]
     popularity_scores = [artist['popularity'] for artist in similar_artists]
 
@@ -65,7 +66,7 @@ def SartTesting():
 
     # Show the plot
     plt.show()
-#SartTesting()
+#get_similar_artists("Sjammienators")
 
 #playlist reading, stuff like that, and whatnot, going to add the option for the user to pick a playlist straight up, because Ion wanna mess w that rn
 #DOING THE PLAYLIST SELECTION RN... JK
@@ -101,11 +102,30 @@ def ILOVEPLAYLISTREADING(playlist_id):
 #ILOVEPLAYLISTREADING()
 
 def GigaJuicer(playlist_id):
+
     playlist = sp.playlist_tracks( playlist_id=playlist_id, fields="items(track(name, artists(name)))")
     for item in playlist["items"]:
         track = item["track"]
         for artist in track["artists"]:
             print(artist["name"])
-            SartTesting(artist["name"])
+            artist_name = artist["name"]
+            results = sp.search(q='artist:' + artist_name, type='artist')
+            items = results['artists']['items']
+            artists = None
+            if len(items) > 0:
+                artist = items[0]
+                artist_id = artist['id']
+                similar_artists = sp.artist_related_artists(artist_id)
+                artists = similar_artists['artists']
+            else:
+                print("Couldn't find artist with name " + artist_name)
 
+                # Define the artist to get simsilar artists for
+
+                # Get the list of similar artists
+
+            for artist in artists:
+                print(artist['name'])
+
+GigaJuicer("3CLDVpuAwUudpk6vs3L3O7")
 #TESTING THIS ARRAY BULLSHIT

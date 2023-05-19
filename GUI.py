@@ -1,11 +1,12 @@
 import tkinter as tk
-from main import login, ILOVEPLAYLISTREADING,SartTesting
+from main import login, ILOVEPLAYLISTREADING,get_similar_artists
 from passwords_ts import playlist_id
+import matplotlib
 
 import webbrowser
 
 from tkinter import ttk
-#login()
+login()
 """
 FOR SOME REASON ALSO GONNA PUT BUTTON SIZES HERE MAN THIS IS UGLY ASL
 """
@@ -105,7 +106,7 @@ def PReadButton():
 
 def SArtistsButton():
     print(AN.get())
-    SartTesting(AN.get())
+    get_similar_artists(AN.get())
 
 
 button3 = tk.Button(root,
