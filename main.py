@@ -31,16 +31,16 @@ global artist_name
 
 
 def get_similar_artists(artist_name):
-    results = sp.search(q='artist:' + artist_name, type='artist')
-    items = results['artists']['items']
+    results = sp.search(q=r'artist:' + artist_name, type=r'artist')
+    items = results[r'artists'][r'items']
     artists = None
     if len(items) > 0:
         artist = items[0]
-        artist_id = artist['id']
+        artist_id = artist[r'id']
         similar_artists = sp.artist_related_artists(artist_id)
-        artists = similar_artists['artists']
+        artists = similar_artists[r'artists']
     else:
-        print("Couldn't find artist with name " + artist_name)
+        print(r"Couldn't find artist with name " + artist_name)
 
         # Define the artist to get simsilar artists for
 
@@ -48,16 +48,16 @@ def get_similar_artists(artist_name):
     similar_artists = artists
 
         # Extract the artist names and popularity scores
-    artist_names = [artist['name'] for artist in similar_artists]
-    popularity_scores = [artist['popularity'] for artist in similar_artists]
+    artist_names = [artist[r'name'] for artist in similar_artists]
+    popularity_scores = [artist[r'popularity'] for artist in similar_artists]
 
     # Create the scatter plot
     fig, ax = plt.subplots()
     ax.scatter(popularity_scores, range(len(artist_names)), alpha=0.5)
 
     # Add labels and title
-    ax.set_xlabel('Popularity')
-    ax.set_ylabel('Artist')
+    ax.set_xlabel(r'Popularity')
+    ax.set_ylabel(r'Artist')
     ax.set_title(f'Similar Artists to {artist_name}')
 
     # Add artist names as y-axis labels
@@ -134,5 +134,5 @@ def GigaJuicer(playlist_id):
                 #print(artist['name'])
     print(sartist_counts)
 
-GigaJuicer("37i9dQZF1DZ06evO3nMr04")
+#GigaJuicer("37i9dQZF1DZ06evO3nMr04")
 #TESTING THIS ARRAY BULLSHIT
