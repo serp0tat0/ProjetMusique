@@ -101,13 +101,15 @@ def ILOVEPLAYLISTREADING(playlist_id):
     plt.show()
 #ILOVEPLAYLISTREADING()
 
+
 def GigaJuicer(playlist_id):
 
-    playlist = sp.playlist_tracks( playlist_id=playlist_id, fields="items(track(name, artists(name)))")
+    sartist_counts = {}
+    playlist = sp.playlist_tracks( playlist_id=playlist_id, fields=r"items(track(name, artists(name)))")
     for item in playlist["items"]:
         track = item["track"]
         for artist in track["artists"]:
-            print(artist["name"])
+            #print(artist["name"])
             artist_name = artist["name"]
             results = sp.search(q='artist:' + artist_name, type='artist')
             items = results['artists']['items']
@@ -117,15 +119,20 @@ def GigaJuicer(playlist_id):
                 artist_id = artist['id']
                 similar_artists = sp.artist_related_artists(artist_id)
                 artists = similar_artists['artists']
+
             else:
                 print("Couldn't find artist with name " + artist_name)
 
                 # Define the artist to get simsilar artists for
-
-                # Get the list of similar artists
-
             for artist in artists:
-                print(artist['name'])
+                # Get the list of similar artists
+                if artist["name"] in sartist_counts:
+                    sartist_counts[artist["name"]] += 1
+                else:
+                    sartist_counts[artist["name"]] = 1
+            #for artist in artists:
+                #print(artist['name'])
+    print(sartist_counts)
 
-GigaJuicer("3CLDVpuAwUudpk6vs3L3O7")
+GigaJuicer("37i9dQZF1DZ06evO3nMr04")
 #TESTING THIS ARRAY BULLSHIT

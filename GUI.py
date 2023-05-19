@@ -1,7 +1,7 @@
 import tkinter as tk
 from main import login, ILOVEPLAYLISTREADING,get_similar_artists
 from passwords_ts import playlist_id
-import matplotlib
+
 
 import webbrowser
 
