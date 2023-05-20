@@ -133,9 +133,8 @@ GB = tk.Button(root, text="Go back!", command=goback)
 label = tk.Label(root, text="QM",).pack()
 goback()
 
-#similar artists section
 #ULTIMATE MOTHERFUCKER
-#def THEARTISTSINPLAYLIST():
+
 
 
 root.mainloop()
