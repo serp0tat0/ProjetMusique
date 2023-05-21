@@ -25,7 +25,7 @@ def login():
     global sp
     sp = spotipy.Spotify(auth=token)
 
-login()
+#login()
 #SIMILAR ARTISTS TESTING
 global artist_name
 
@@ -168,4 +168,6 @@ def GigaJuicer(playlist_id, threshold):
     plt.title("Playlist artists")
     plt.show()
 
-GigaJuicer("2NAWvom8XiRN8th60fqZmv", 3)
+
+
+#GigaJuicer("2NAWvom8XiRN8th60fqZmv", 4)

@@ -6,7 +6,7 @@ from passwords_ts import playlist_id
 import webbrowser
 
 from tkinter import ttk
-login()
+#login()
 """
 FOR SOME REASON ALSO GONNA PUT BUTTON SIZES HERE MAN THIS IS UGLY ASL
 """
@@ -22,6 +22,7 @@ E1posX = 128
 E1posY = 50
 ID = tk.StringVar()
 AN = tk.StringVar()
+UM = tk.StringVar()
 #also putting the button positions here, don't feel like actually copying and pasting them
 B1posX=128
 B1posY=50
@@ -59,6 +60,9 @@ def switch2(): #the switch for the second button, could also just do it in one f
     B2.place(x=E1posX, y=E1posY+20)
     L2.place(x=E1posX, y=E1posY-21)
 
+def switch3():
+    defaultswitch()
+
 
 #SPAGHETTICODE MOMENT, not gonna place the buttons in the code itself but in the goback function
 def goback():
@@ -66,14 +70,17 @@ def goback():
     button2.place(x=B2posX, y=B2posY)
     button3.place(x=B3posX, y=B3posY)
     e1.place_forget()
+    e2.place_forget()
     L1.place_forget()
+    L2.place_forget()
     B1.place_forget()
+    B2.place_forget()
     GB.pack_forget()
     link.pack_forget()
     exit_button.pack(anchor="e", side="bottom")
-    e2.place_forget()
-    B2.place_forget()
-    L2.place_forget()
+
+
+
 
 
 exit_button = ttk.Button(
@@ -84,7 +91,7 @@ exit_button = ttk.Button(
 )
 # Create Buttons in the frame
 button1 = tk.Button(root,
-    text="ReadPlaylist",
+    text="Read my playlist!",
     height= BHeight1,
     width= BWidth1,
     command = switch,
@@ -92,7 +99,7 @@ button1 = tk.Button(root,
 
 
 button2 = tk.Button(root,
-    text="Button-2",
+    text="Check similar artists",
     height=BHeight1,
     width=BWidth1,
     command=switch2,
@@ -108,29 +115,36 @@ def SArtistsButton():
     print(AN.get())
     get_similar_artists(AN.get())
 
+def ULTIMATEMOTHERFUCKER():
+    print("ULTIMATE MOTHER FUCKER")
+
+
 
 button3 = tk.Button(root,
     text="Button-3",
     height=BHeight2,
     width=BWidth2,
+    command=ULTIMATEMOTHERFUCKER,
     cursor="hand2")
 
 #text box somewhere around here
 
 e1 = tk.Entry(root, textvariable=ID, width=30)
 e2 = tk.Entry(root, textvariable=AN, width=30)
-L1 = tk.Label(root, text="insert playlist id")
+e3 = tk.Entry(root, textvariable=UM, width=30)
 B1 = tk.Button(root, text="Got it!", command=PReadButton)
 B2 = tk.Button(root,text="Got it!", command=SArtistsButton)
+B3 = tk.Button(root, text="Got it!", command=ULTIMATEMOTHERFUCKER)
+L1 = tk.Label(root, text="insert playlist id")
 L2 = tk.Label(root, text="insert artist name")
-
+L3 = tk.Label(root, text="insert playlist id")
 
 link = tk.Label(root, text="How can I find my playlist id?", font=("Helveticabold", 15), fg= "blue", cursor="hand2")
 link.bind("<Button-1>", lambda e:
 callback("https://clients.caster.fm/knowledgebase/110/How-to-find-Spotify-playlist-ID.html#:~:text=To%20find%20the%20Spotify%20playlist,Link%22%20under%20the%20Share%20menu.&text=The%20playlist%20id%20is%20the,after%20playlist%2F%20as%20marked%20above."))
 #Create a Label
 GB = tk.Button(root, text="Go back!", command=goback)
-label = tk.Label(root, text="QM",).pack()
+label = tk.Label(root, text="THIS SHIT IS GOATED AS FUCK",).pack()
 goback()
 
 #ULTIMATE MOTHERFUCKER
