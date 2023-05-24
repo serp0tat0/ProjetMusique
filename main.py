@@ -25,7 +25,7 @@ def login():
     global sp
     sp = spotipy.Spotify(auth=token)
 
-#login()
+login()
 #SIMILAR ARTISTS TESTING
 global artist_name
 
