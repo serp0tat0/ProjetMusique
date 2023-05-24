@@ -6,7 +6,6 @@ from passwords_ts import playlist_id
 import webbrowser
 
 from tkinter import ttk
-#login()
 """
 FOR SOME REASON ALSO GONNA PUT BUTTON SIZES HERE MAN THIS IS UGLY ASL
 """
@@ -86,10 +85,6 @@ def switch3():
     e3.place(x=E1posX, y=E1posY)
     L1.place(x=E1posX, y=E1posY - 21)
     B3.place(x=E1posX + 190, y=E1posY)
-    L3.place(x=E1posX, y=E1posY + 100)
-    BP1.place(x=E1posX, y=E1posY + 121)
-    BP2.place(x=E1posX, y=E1posY + 150)
-    BP3.place(x=E1posX, y=E1posY + 180)
     link.pack()
 
 
@@ -105,6 +100,8 @@ def goback():
     L1.place_forget()
     L2.place_forget()
     L3.place_forget()
+    L4.place_forget()
+    L5.place_forget()
     B1.place_forget()
     B2.place_forget()
     B3.place_forget()
@@ -163,6 +160,11 @@ def absoluteBeauty():
     L5.place(x=E1posX, y=E1posY)
     B4.place(x=E1posX + 190, y=E1posY)
     L5["text"]= UM.get()
+    BP1.place(x=E1posX, y=E1posY + 121)
+    BP2.place(x=E1posX, y=E1posY + 150)
+    BP3.place(x=E1posX, y=E1posY + 180)
+    L3.place(x=E1posX, y=E1posY + 100)
+    L4.place(x=E1posX + 180, y= E1posY + 121)
 
 
 def change():
@@ -170,6 +172,11 @@ def change():
     L5.place_forget()
     e3.place(x=E1posX, y=E1posY)
     B3.place(x=E1posX + 190, y=E1posY)
+    BP1.place_forget()
+    BP2.place_forget()
+    BP3.place_forget()
+    L3.place_forget()
+    L4.place_forget()
 
 
 
