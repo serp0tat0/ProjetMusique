@@ -115,9 +115,6 @@ def goback():
     exit_button.pack(anchor="e", side="bottom")
 
 
-
-
-
 exit_button = ttk.Button(
     root,
     text="Exit",
@@ -125,20 +122,10 @@ exit_button = ttk.Button(
     cursor="hand2"
 )
 # Create Buttons in the frame
-button1 = tk.Button(root,
-    text="Read my playlist!",
-    height=BHeight1,
-    width=BWidth1,
-    command =switch,
-    cursor="hand2")
+button1 = tk.Button(root, text="Read my playlist!", height=BHeight1, width=BWidth1, command =switch, cursor="hand2")
 
 
-button2 = tk.Button(root,
-    text="Check similar artists",
-    height=BHeight1,
-    width=BWidth1,
-    command=switch2,
-    cursor="hand2")
+button2 = tk.Button(root, text="Check similar artists", height=BHeight1, width=BWidth1, command=switch2, cursor="hand2")
 
 
 def PReadButton():
@@ -179,13 +166,7 @@ def change():
     L4.place_forget()
 
 
-
-button3 = tk.Button(root,
-    text="Recommend me some artists",
-    height=BHeight2,
-    width=BWidth2,
-    command=switch3,
-    cursor="hand2")
+button3 = tk.Button(root, text="Recommend me some artists", height=BHeight2, width=BWidth2, command=switch3, cursor="hand2")
 
 
 #text box somewhere around here
@@ -212,9 +193,8 @@ BP2 = tk.Button(root, text="not sure, a little bit", command=switchit(2))
 BP3 = tk.Button(root, text="show me something accurate.", command=switchit(3))
 
 link = tk.Label(root, text="How can I find my playlist id?", font=("Helveticabold", 15), fg= "blue", cursor="hand2")
-link.bind("<Button-1>", lambda e:
-callback("https://clients.caster.fm/knowledgebase/110/How-to-find-Spotify-playlist-ID.html#:~:text=To%20find%20the%20Spotify%20playlist,Link%22%20under%20the%20Share%20menu.&text=The%20playlist%20id%20is%20the,after%20playlist%2F%20as%20marked%20above."))
-#Create a Label
+link.bind("<Button-1>", lambda e: callback("https://clients.caster.fm/knowledgebase/110/How-to-find-Spotify-playlist-ID.html#:~:text=To%20find%20the%20Spotify%20playlist,Link%22%20under%20the%20Share%20menu.&text=The%20playlist%20id%20is%20the,after%20playlist%2F%20as%20marked%20above."))
+# Create a Label
 GB = tk.Button(root, text="Go back!", command=goback)
 label = tk.Label(root, text="1RST DAY WITHOUT BUGS",).pack()
 goback()
